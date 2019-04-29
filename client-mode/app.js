@@ -4,30 +4,11 @@ const alidns = require('./alidns.js');
 const config = require('./config.json');
 
 const simpleGetPubIpUrl = [
-    'api.ipify.org',
-    'canhazip.com',
-    'ident.me',
-    'whatismyip.akamai.com',
-    'myip.dnsomatic.com']
-
-const taobaoApi = {
-    option: {
-        host: "ip.taobao.com",
-        path: "/service/getIpInfo2.php?ip=myip",
-        method: "POST"
-    },
-    parser: body => {
-        const j = JSON.parse(body);
-        return j.data.ip;
-    }
-}
+    'v6.ident.me'
+]
 
 function isValidIp(ip) {
-    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ip)) {
-        return true;
-    } else {
-        return false;
-    }
+    return true;
 }
 
 function getPubIpGeneric(option, parser, callback) {
@@ -62,7 +43,6 @@ function pubIpApi() {
             parser: body => body.trim()
         };
     }
-    apiList[simpleGetPubIpUrl.length] = taobaoApi;
     return apiList;
 }
 
